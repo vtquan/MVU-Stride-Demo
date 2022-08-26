@@ -6,7 +6,7 @@ namespace MyGame
     {
         static void Main(string[] args)
         {
-            using (var game = new MvuGame.Game.MvuGame())
+            using (var game = new MyGame.Core.MvuGame())
             {
                 game.Run();
             }

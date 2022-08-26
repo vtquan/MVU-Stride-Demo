@@ -6,7 +6,7 @@ namespace MyGame
 {
     public static class Events
     {
-        public static readonly EventKey<Tuple<string, Entity>> GameEventKey = new();
-        public static readonly EventReceiver<Tuple<string, Entity>> gameListener = new(GameEventKey, EventReceiverOptions.Buffered);
+        public static readonly EventKey<string> PlayerEventKey = new();
+        public static readonly EventReceiver<string> PlayerEventListener = new(PlayerEventKey, EventReceiverOptions.Buffered);
     }
 }

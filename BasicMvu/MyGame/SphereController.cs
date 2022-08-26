@@ -26,26 +26,26 @@ namespace MyGame
             if (KeysLeft.Any(key => Input.IsKeyDown(key)))
             {
                 isKeyPress = true;
-                Events.GameEventKey.Broadcast(new Tuple<string, Entity>("Left", Entity));
+                Events.PlayerEventKey.Broadcast("Left");
             }
             if (KeysRight.Any(key => Input.IsKeyDown(key)))
             {
                 isKeyPress = true;
-                Events.GameEventKey.Broadcast(new Tuple<string, Entity>("Right", Entity));
+                Events.PlayerEventKey.Broadcast("Right");
             }
             if (KeysUp.Any(key => Input.IsKeyDown(key)))
             {
                 isKeyPress = true;
-                Events.GameEventKey.Broadcast(new Tuple<string, Entity>("Up", Entity));
+                Events.PlayerEventKey.Broadcast("Up");
             }
             if (KeysDown.Any(key => Input.IsKeyDown(key)))
             {
                 isKeyPress = true;
-                Events.GameEventKey.Broadcast(new Tuple<string, Entity>("Down", Entity));
+                Events.PlayerEventKey.Broadcast("Down");
             }
             if (isKeyPress == false)
             {
-                Events.GameEventKey.Broadcast(new Tuple<string, Entity>("Stop", Entity));
+                Events.PlayerEventKey.Broadcast("Stop");
             }
         }
     }
