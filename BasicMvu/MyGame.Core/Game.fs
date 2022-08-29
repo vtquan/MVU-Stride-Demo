@@ -44,19 +44,19 @@ module Game =
             ] |> List.distinct
         messages
 
-    let view (state : Model) (gameTime : GameTime) =
+    let view (gameModel : Model) (gameTime : GameTime) =
         let deltaTime = float32 gameTime.Elapsed.TotalSeconds
 
-        Player.view state.PlayerModel deltaTime
+        Player.view gameModel.PlayerModel deltaTime
 
-    let update (state : Model) (cmds : Msg list) (gameTime : GameTime) =
+    let update (gameModel : Model) (cmds : Msg list) (gameTime : GameTime) =
         let deltaTime = float32 gameTime.Elapsed.TotalSeconds
 
-        let updateFold ((state, msgs) : Model * Msg list) cmd  = 
+        let updateFold ((gameModel, msgs) : Model * Msg list) cmd  = 
             match cmd with
             | PlayerMsg(m) ->
-                let (model,msg) = Player.update m state.PlayerModel deltaTime
-                { state with PlayerModel = model }, msgs @ msg
+                let (model,msg) = Player.update m gameModel.PlayerModel deltaTime
+                { gameModel with PlayerModel = model }, msgs @ msg
 
-        let newState, nextMessages = List.fold updateFold (state, []) cmds
-        newState , List.distinct nextMessages
+        let newModel, newMessages = List.fold updateFold (gameModel, []) cmds
+        newModel , List.distinct newMessages
