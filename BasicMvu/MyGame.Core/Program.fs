@@ -7,12 +7,12 @@ open Game
 type MvuGame() =
     inherit Game()
 
-    let mutable State, Messages = Game.empty,[]
+    let mutable Model, Messages = Game.empty, []
         
     override this.BeginRun () = 
         let mainScene = this.Content.Load<Scene>("MainScene")
-        let state, messages = init mainScene
-        State <- state
+        let model, messages = init mainScene
+        Model <- model
         Messages <- messages    
         
     override this.Update gameTime =
@@ -20,11 +20,11 @@ type MvuGame() =
             
         Messages <- Messages @ mapAllEvent ()
 
-        let newState, newMessages = update State Messages gameTime
-        State <- newState
-        Messages <- newMessages
+        let model, messages = update Model Messages gameTime
+        Model <- model
+        Messages <- messages
 
-        view State gameTime |> ignore
+        view Model gameTime |> ignore
 
     override this.Destroy () =
         base.Destroy()

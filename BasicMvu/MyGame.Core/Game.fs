@@ -16,6 +16,15 @@ module Game =
 
     let empty =
         { PlayerModel = Player.empty }
+        
+    let init (scene : Scene) : Model * Msg list =
+        let playerModel, playerMsgs = Player.init scene
+        let gameMsgs =
+            [
+                yield! List.map (PlayerMsg) playerMsgs
+            ]
+            |> List.distinct
+        { empty with PlayerModel = playerModel }, gameMsgs
 
     let private mapEvent (eventReceiver : EventReceiver<'a>) (eventMap : 'a -> 'b list) (listMap : 'b list -> Msg list) =   
         let eventList = (Seq.empty).ToList()
@@ -34,15 +43,6 @@ module Game =
                 yield! mapEvent MyGame.Events.PlayerEventListener Player.map (List.map PlayerMsg)
             ] |> List.distinct
         messages
-        
-    let init (scene : Scene) : Model * Msg list =
-        let playerModel, playerMsgs = Player.init scene
-        let gameMsgs =
-            [
-                yield! List.map (PlayerMsg) playerMsgs
-            ]
-            |> List.distinct
-        { PlayerModel = playerModel }, gameMsgs
 
     let view (state : Model) (gameTime : GameTime) =
         let deltaTime = float32 gameTime.Elapsed.TotalSeconds
