@@ -56,7 +56,7 @@ module Game =
             match cmd with
             | PlayerMsg(m) ->
                 let (model,msg) = Player.update m gameModel.PlayerModel deltaTime
-                { gameModel with PlayerModel = model }, msgs @ msg
+                { gameModel with PlayerModel = model }, msgs @ (List.map PlayerMsg msg)
 
         let newModel, newMessages = List.fold updateFold (gameModel, []) cmds
         newModel , List.distinct newMessages

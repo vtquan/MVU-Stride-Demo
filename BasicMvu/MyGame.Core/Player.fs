@@ -37,7 +37,7 @@ module Player =
     let view model (deltaTime : float32) =
         model.Sphere.Transform.Position <- model.Sphere.Transform.Position + model.Velocity * deltaTime
     
-    let update msg model (deltaTime : float32) =
+    let update msg model (deltaTime : float32) : Model * Msg list =
         match msg with        
         | Left -> 
             { model with Velocity = model.Velocity - Vector3.UnitX }, []                        
